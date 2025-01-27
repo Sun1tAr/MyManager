@@ -1,12 +1,17 @@
 package ru.proj3ct5.service;
 
+import ru.proj3ct5.tracker.WorkTime;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class TimeProcessor {
 
-    public static LocalTime calculate(LocalTime startWorkTime, LocalTime endWorkTime) {
+    public static LocalTime calculate(LocalTime startWorkTime, LocalTime endWorkTime) throws IllegalArgumentException {
+
+        if (startWorkTime == null || endWorkTime == null) {
+            throw new IllegalArgumentException("startWorkTime and endWorkTime cannot be null");
+        }
 
         int workHours = endWorkTime.getHour() - startWorkTime.getHour();
         int workMinutes = endWorkTime.getMinute() - startWorkTime.getMinute();
@@ -20,8 +25,45 @@ public class TimeProcessor {
         return LocalTime.of(workHours, workMinutes, 0);
     }
 
-    public static LocalTime calculateMoreTimes(ArrayList<LocalTime> times) {
-        return calculate(times.get(0), times.get(1));
+    static LocalTime rebuildMinutes(int hours, int minutes) {
+        if (minutes >= 60) {
+            int addH = minutes / 60;
+            hours += addH;
+            minutes = minutes - addH * 60;
+        }
+        return LocalTime.of(hours, minutes);
     }
+
+
+    public static LocalTime calculateSomeTimes(ArrayList<WorkTime> times) {
+        int hours = 0;
+        int minutes = 0;
+        if (times == null || times.size() == 0) {
+            return LocalTime.of(0, 0);
+        }
+        for (WorkTime time : times) {
+            hours += time.getWorkTime().getHour();
+            minutes += time.getWorkTime().getMinute();
+        }
+        return rebuildMinutes(hours, minutes);
+    }
+
+
+    public static LocalTime calculateSomeTimes(ArrayList<WorkTime> times, WorkTime workTime) {
+        LocalTime time = calculateSomeTimes(times);
+        if (workTime == null) {
+            return LocalTime.of(0, 0);
+        }
+        int hours = workTime.getWorkTime().getHour() + time.getHour();
+        int minutes = workTime.getWorkTime().getMinute() + time.getMinute();
+        return rebuildMinutes(hours, minutes);
+    }
+
+
+    public static LocalTime calculateDayTime(LocalTime workTime, LocalTime dinnerTime) {
+        return calculate(dinnerTime, workTime);
+    }
+
+
 
 }
