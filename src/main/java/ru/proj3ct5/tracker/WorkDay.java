@@ -40,7 +40,7 @@ public class WorkDay {
     }
 
     public void startWorkDay() {
-        if ((status == 0 || status == 3) && createNewWorkingTime(currentWork, worksList)) {
+        if ((status == 0 || status == 3) && createNewWorkingTime(currentWork, worksList, 1)) {
             currentWork.startWorkTime();
             status = 1;
             log.info("Work day started!");
@@ -73,12 +73,13 @@ public class WorkDay {
     }
 
     public void startDinner() {
-        if ((status != 2) && createNewWorkingTime(currentDinner, dinnersList)) {
+        if ((status == 1) && createNewWorkingTime(currentDinner, dinnersList, 0)) {
             currentWork.startWorkTime();
             status = 2;
             log.info("Dinner started!");
         } else {
-            System.err.println("Today 'Dinner' already started!");
+            System.err.println("Для начала обеда - начните рабочий день!");
+            log.warn("For starting dinner need a start work day! Status = {}", status);
         }
     }
 
@@ -120,20 +121,22 @@ public class WorkDay {
         log.info("Time was calculated = {}, with day status = {}", todayWorkingTime, status);
     }
 
-    private boolean createNewWorkingTime(WorkTime currentWork, List<WorkTime> worksList) {
-        boolean flag = false;
+    private boolean createNewWorkingTime(WorkTime currentWork, List<WorkTime> worksList, int mode) {
         if (currentWork != null) {
             try {
                 addCurrentWorkToList(currentWork, worksList);
             } catch (Exception e) {
                 log.error("New working time wasn`t created - old work hasn`t add to list = {}", currentWork.getStatus());
-                return flag;
+                return false;
             }
         }
-        currentWork = new WorkTime();
-        flag = true;
+        if (mode == 1) {
+            this.currentWork = new WorkTime();
+        } else {
+            this.currentDinner = new WorkTime();
+        }
         log.info("New working time created");
-        return flag;
+        return true;
     }
 
     private void addCurrentWorkToList(WorkTime currentWork, List<WorkTime> worksList) throws Exception {

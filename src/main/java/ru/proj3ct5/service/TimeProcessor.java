@@ -4,7 +4,6 @@ import ru.proj3ct5.tracker.WorkTime;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class TimeProcessor {
 
@@ -26,17 +25,37 @@ public class TimeProcessor {
         return LocalTime.of(workHours, workMinutes, 0);
     }
 
-    public static LocalTime calculateSomeTimes(ArrayList<WorkTime> times) {
-        return null;
+    static LocalTime rebuildMinutes(int hours, int minutes) {
+        if (minutes >= 60) {
+            int addH = minutes / 60;
+            hours += addH;
+            minutes = minutes - addH * 60;
+        }
+        return LocalTime.of(hours, minutes);
     }
+
+
+    public static LocalTime calculateSomeTimes(ArrayList<WorkTime> times) {
+        int hours = 0;
+        int minutes = 0;
+        for (WorkTime time : times) {
+            hours += time.getWorkTime().getHour();
+            minutes += time.getWorkTime().getMinute();
+        }
+        return rebuildMinutes(hours, minutes);
+    }
+
 
     public static LocalTime calculateSomeTimes(ArrayList<WorkTime> times, WorkTime workTime) {
-        return null;
+        LocalTime time = calculateSomeTimes(times);
+        int hours = workTime.getWorkTime().getHour() + time.getHour();
+        int minutes = workTime.getWorkTime().getMinute() + time.getMinute();
+        return rebuildMinutes(hours, minutes);
     }
 
-    public static LocalTime calculateDayTime(LocalTime workTime, LocalTime dinnerTime) {
 
-        return null;
+    public static LocalTime calculateDayTime(LocalTime workTime, LocalTime dinnerTime) {
+        return calculate(dinnerTime, workTime);
     }
 
 
