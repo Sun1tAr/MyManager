@@ -38,6 +38,9 @@ public class TimeProcessor {
     public static LocalTime calculateSomeTimes(ArrayList<WorkTime> times) {
         int hours = 0;
         int minutes = 0;
+        if (times == null || times.size() == 0) {
+            return LocalTime.of(0, 0);
+        }
         for (WorkTime time : times) {
             hours += time.getWorkTime().getHour();
             minutes += time.getWorkTime().getMinute();
@@ -48,6 +51,9 @@ public class TimeProcessor {
 
     public static LocalTime calculateSomeTimes(ArrayList<WorkTime> times, WorkTime workTime) {
         LocalTime time = calculateSomeTimes(times);
+        if (workTime == null) {
+            return LocalTime.of(0, 0);
+        }
         int hours = workTime.getWorkTime().getHour() + time.getHour();
         int minutes = workTime.getWorkTime().getMinute() + time.getMinute();
         return rebuildMinutes(hours, minutes);

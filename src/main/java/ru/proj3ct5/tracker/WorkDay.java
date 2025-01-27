@@ -45,7 +45,7 @@ public class WorkDay {
             status = 1;
             log.info("Work day started!");
         } else {
-            System.err.println("Today 'Work day' already started!");
+            System.err.println("Рабочий период уже начат!");
         }
     }
 
@@ -68,13 +68,14 @@ public class WorkDay {
             endDinner();
             endWorkDay();
         } else {
-            System.err.println("Today work time already ended!");
+            System.err.println("Рабочий период уже завершен!");
         }
+        currentWork = null;
     }
 
     public void startDinner() {
         if ((status == 1) && createNewWorkingTime(currentDinner, dinnersList, 0)) {
-            currentWork.startWorkTime();
+            currentDinner.startWorkTime();
             status = 2;
             log.info("Dinner started!");
         } else {
@@ -84,6 +85,7 @@ public class WorkDay {
     }
 
     public void endDinner() {
+
         if (status == 2 && currentDinner.getStatus() == 1) {
             currentDinner.endWorkTime();
             try {
@@ -95,8 +97,9 @@ public class WorkDay {
             todayDinnerTimeLocal = calculateTime(dinnersList);
             status = 1;
             log.info("Dinner ended!");
+            currentDinner = null;
         } else {
-            System.err.println("Dinner already ended!");
+            System.err.println("Обед уже завершен!");
         }
     }
 
@@ -106,9 +109,17 @@ public class WorkDay {
     }
 
     private void calculateTime() {
-        if (status == 1 || status == 2) {
+        if (status == 1) {
             todayWorkingTimeLocal = TimeProcessor.calculateSomeTimes(worksList, currentWork);
-            todayDinnerTimeLocal = TimeProcessor.calculateSomeTimes(dinnersList, currentDinner);
+            todayDinnerTimeLocal = TimeProcessor.calculateSomeTimes(dinnersList);
+        } else if (status == 2) {
+            if (currentWork.getStatus() == 1) {
+                todayWorkingTimeLocal = TimeProcessor.calculateSomeTimes(worksList, currentWork);
+                todayDinnerTimeLocal = TimeProcessor.calculateSomeTimes(dinnersList, currentDinner);
+            } else {
+                todayWorkingTimeLocal = TimeProcessor.calculateSomeTimes(worksList);
+                todayDinnerTimeLocal = TimeProcessor.calculateSomeTimes(dinnersList, currentDinner);
+            }
         } else {
             todayWorkingTimeLocal = TimeProcessor.calculateSomeTimes(worksList);
             todayDinnerTimeLocal = TimeProcessor.calculateSomeTimes(dinnersList);
