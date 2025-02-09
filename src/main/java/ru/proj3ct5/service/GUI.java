@@ -1,5 +1,6 @@
 package ru.proj3ct5.service;
 
+import ru.proj3ct5.network.Message;
 import ru.proj3ct5.tracker.WorkDay;
 
 import java.util.Scanner;
@@ -7,6 +8,7 @@ import java.util.Scanner;
 public class GUI {
 
     Scanner scanner;
+    boolean running = true;
 
     public GUI() {
         this.scanner = new Scanner(System.in);
@@ -44,6 +46,46 @@ public class GUI {
         }
     }
 
+    public void startRemoteGUI() {
+        String msg = "0 - Выход\n1 - Начать РД\n2 - Закончить РД\n3 - Начать обед\n4 - закончить обед\n5 - Время\n6 - Новый день";
+        int userInput = getUserInput(msg);
+
+        String data = "";
+        Message message;
+
+
+        while (running) {
+            switch (userInput) {
+                case 0: data = "STOP";
+                        close();
+                    break;
+                case 1: data = "startWork";
+                    break;
+                case 2: data = "endWork";
+                    break;
+                case 3: data = "startDinner";
+                    break;
+                case 4: data = "endDinner";
+                    break;
+                case 5: data = "getTime";
+                    break;
+                case 6: data = "newDay";
+                break;
+                default:
+                    System.err.println("Invalid input, try again");
+                    break;
+            }
+            message = Message.builder()
+                    .receiver("TimeTracker")
+                    .data(data)
+                    .build();
+            message.send();
+            if (running) {
+                userInput = getUserInput(msg);
+            }
+        }
+    }
+
     private int getUserInput(String msg) {
         System.out.println(msg);
         System.out.println("-----------------------------");
@@ -73,4 +115,8 @@ public class GUI {
 
     }
 
+    public void close() {
+        running = false;
+        scanner.close();
+    }
 }

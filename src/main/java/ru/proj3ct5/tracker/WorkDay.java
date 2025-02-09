@@ -108,6 +108,19 @@ public class WorkDay {
         return todayWorkingTime;
     }
 
+    public static String deserializeStatus(int status) {
+        String output = "Ваш статус: ";
+        switch (status) {
+            case 0: output += "Работа не начата"; break;
+            case 1: output += "Работа начата"; break;
+            case 2: output += "Обед"; break;
+            case 3: output += "Работа завершена"; break;
+            default:
+                return "Invalid input, try again";
+        }
+        return output;
+    }
+
     private void calculateTime() {
         if (status == 1) {
             todayWorkingTimeLocal = TimeProcessor.calculateSomeTimes(worksList, currentWork);

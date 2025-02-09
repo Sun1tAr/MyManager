@@ -1,19 +1,33 @@
 package ru.proj3ct5.service;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
+@Slf4j
 public class Configurator {
-    Object dataBase;
-    private int activate;
 
-    @Setter
     @Getter
-    private String linkToDataBase;
+    private int port;
+    @Getter
+    private String ip;
 
-    public int activate() {
-        activate = 1;
-        return activate;
+    private final File configFile = new File("C:\\0_DATA\\CodeProjects\\Java\\WorkingTimeTracker\\src\\main\\resources\\config.properties");
+
+    public Configurator() {
+        Properties prop = new Properties();
+        try {
+            prop.load(new FileReader(configFile));
+        } catch (IOException e) {
+            log.error("Failed to load config file: {}", e.getMessage());
+        }
+        port = Integer.parseInt(prop.getProperty("PORT"));
+        ip = prop.getProperty("IP");
+        log.info("Configuration was loaded successfully");
     }
 
 }

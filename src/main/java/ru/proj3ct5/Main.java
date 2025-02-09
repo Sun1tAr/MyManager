@@ -1,31 +1,39 @@
 package ru.proj3ct5;
 
-import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.PropertyConfigurator;
-import ru.proj3ct5.service.GUI;
-import ru.proj3ct5.service.TimeProcessor;
-import ru.proj3ct5.tracker.WorkDay;
-import ru.proj3ct5.tracker.WorkTime;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
-import java.util.Date;
+import org.apache.log4j.PropertyConfigurator;
+import ru.proj3ct5.network.Message;
+import ru.proj3ct5.network.Subscriber;
+import ru.proj3ct5.service.Configurator;
+import ru.proj3ct5.service.GUI;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
 
 @Log4j
 public class Main {
-    @SneakyThrows
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         PropertyConfigurator.configure(
                 "C:\\0_DATA\\CodeProjects\\Java\\WorkingTimeTracker\\src\\main\\resources\\log4j.properties");
 
-        WorkDay wd = new WorkDay();
+        Handler h = new Handler();
+        h.process();
+
         GUI gui = new GUI();
+        gui.startRemoteGUI();
 
-        gui.startSimpleGUI();
+//        Thread.sleep(15000);
 
+
+
+        System.out.println("salkjdevfnbal");
     }
+
+
+
+
 }
