@@ -46,15 +46,14 @@ public class Handler {
                     throw new RuntimeException();
 //                    break;
                 }
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    log.error("Thread unsleeped: {}", e.getMessage());
-                }
+//                try {
+//                    Thread.sleep(5000);
+//                } catch (InterruptedException e) {
+//                    log.error("Thread unsleeped: {}", e.getMessage());
+//                }
             }
         });
         t.start();
-
     }
 
     public void close() {

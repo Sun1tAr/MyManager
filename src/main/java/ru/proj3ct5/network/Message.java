@@ -2,7 +2,7 @@ package ru.proj3ct5.network;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import ru.proj3ct5.service.Configurator;
+import ru.proj3ct5.settings.Configurator;
 
 @Slf4j
 public class Message {
@@ -36,19 +36,16 @@ public class Message {
         log.debug("Message was serialized: {}", serializedMessage);
     }
 
-    public boolean send() {
+    public void send() {
         serialize();
-        boolean result = false;
         try {
             Publisher publisher = new Publisher();
             publisher.create(ip, port);
             publisher.send(serializedMessage);
-            result = true;
             log.debug("Message sent successfully");
         } catch (RuntimeException e) {
             log.error("Error sending message: {}", e.getMessage());
         }
-        return result;
     }
 
     public static Message deserialize(String serializedMessage) {

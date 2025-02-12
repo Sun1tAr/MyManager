@@ -1,4 +1,4 @@
-package ru.proj3ct5.service;
+package ru.proj3ct5.settings;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
