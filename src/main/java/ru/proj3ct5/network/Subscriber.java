@@ -22,7 +22,7 @@ public class Subscriber {
     private boolean run;
 
 
-    public void start() {
+    public synchronized void start() {
         run = true;
         Configurator config = new Configurator();
         port = config.getPort();
@@ -71,7 +71,7 @@ public class Subscriber {
 
     }
 
-    public void stop() {
+    public synchronized void stop() {
         run = false;
         pcapHandle.close();
         log.info("Subscriber's thread was stopped");
@@ -85,5 +85,8 @@ public class Subscriber {
         return messages;
     }
 
+    public boolean isRunning() {
+        return run;
+    }
 
 }

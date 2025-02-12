@@ -1,4 +1,4 @@
-package ru.proj3ct5.tracker;
+package ru.proj3ct5.timeTracker;
 
 import lombok.SneakyThrows;
 import org.apache.log4j.PropertyConfigurator;

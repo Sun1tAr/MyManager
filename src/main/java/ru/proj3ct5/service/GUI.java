@@ -1,7 +1,7 @@
 package ru.proj3ct5.service;
 
 import ru.proj3ct5.network.Message;
-import ru.proj3ct5.tracker.WorkDay;
+import ru.proj3ct5.timeTracker.WorkDay;
 
 import java.util.Scanner;
 

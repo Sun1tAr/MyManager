@@ -1,10 +1,9 @@
-package ru.proj3ct5.tracker;
+package ru.proj3ct5.timeTracker;
 
 import lombok.SneakyThrows;
 import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
