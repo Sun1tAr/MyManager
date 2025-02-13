@@ -1,4 +1,4 @@
-package ru.proj3ct5.tracker;
+package ru.proj3ct5.timeTracker;
 
 import lombok.SneakyThrows;
 import org.apache.log4j.PropertyConfigurator;
@@ -7,7 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.proj3ct5.service.TimeProcessor;
+import ru.proj3ct5.service.secondary.TimeProcessor;
+import ru.proj3ct5.service.timeTracker.WorkDay;
 
 import java.time.LocalTime;
 

@@ -1,4 +1,4 @@
-package ru.proj3ct5.service;
+package ru.proj3ct5.service.secondary;
 
 import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,7 +18,7 @@ class TimeProcessorTest {
     @BeforeAll
     public static void init() {
         PropertyConfigurator.configure(
-                "C:\\0_DATA\\CodeProjects\\Java\\WorkingTimeTracker\\" +
+                "C:\\0_DATA\\CodeProjects\\Java\\MyManager\\" +
                 "src\\main\\resources\\log4j_4test.properties");
     }
 

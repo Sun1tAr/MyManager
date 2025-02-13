@@ -1,10 +1,10 @@
-package ru.proj3ct5.tracker;
+package ru.proj3ct5.service.timeTracker;
 
 
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.proj3ct5.service.TimeProcessor;
+import ru.proj3ct5.service.secondary.TimeProcessor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -106,6 +106,19 @@ public class WorkDay {
     public LocalTime getTodayWorkingTime() {
         calculateTime();
         return todayWorkingTime;
+    }
+
+    public static String deserializeStatus(int status) {
+        String output = "Ваш статус: ";
+        switch (status) {
+            case 0: output += "Работа не начата"; break;
+            case 1: output += "Работа начата"; break;
+            case 2: output += "Обед"; break;
+            case 3: output += "Работа завершена"; break;
+            default:
+                return "Invalid input, try again";
+        }
+        return output;
     }
 
     private void calculateTime() {

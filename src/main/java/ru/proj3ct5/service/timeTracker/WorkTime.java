@@ -1,10 +1,9 @@
-package ru.proj3ct5.tracker;
+package ru.proj3ct5.service.timeTracker;
 
-import lombok.Data;
 import lombok.Getter;
 
 
-import ru.proj3ct5.service.TimeProcessor;
+import ru.proj3ct5.service.secondary.TimeProcessor;
 
 import java.time.LocalTime;
 

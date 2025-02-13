@@ -2,30 +2,33 @@ package ru.proj3ct5;
 
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.PropertyConfigurator;
-import ru.proj3ct5.service.GUI;
-import ru.proj3ct5.service.TimeProcessor;
-import ru.proj3ct5.tracker.WorkDay;
-import ru.proj3ct5.tracker.WorkTime;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
-import java.util.Date;
+import org.apache.log4j.PropertyConfigurator;
+import ru.proj3ct5.network.Subscriber;
+import ru.proj3ct5.service.GUI;
+import ru.proj3ct5.settings.Handler;
+import ru.proj3ct5.service.timeTracker.TimeTrackerHandler;
+
 
 @Log4j
 public class Main {
     @SneakyThrows
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         PropertyConfigurator.configure(
-                "C:\\0_DATA\\CodeProjects\\Java\\WorkingTimeTracker\\src\\main\\resources\\log4j.properties");
+                "C:\\0_DATA\\CodeProjects\\Java\\MyManager\\src\\main\\resources\\log4j.properties");
 
-        WorkDay wd = new WorkDay();
+        Subscriber subscriber = new Subscriber();
+
+        Handler h = new TimeTrackerHandler(subscriber);
+        h.process();
+
         GUI gui = new GUI();
+        gui.startRemoteGUI();
 
-        gui.startSimpleGUI();
 
     }
+
+
+
+
 }
