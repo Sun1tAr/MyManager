@@ -1,13 +1,10 @@
-package ru.proj3ct5;
+package ru.proj3ct5.service.timeTracker;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.proj3ct5.network.Message;
 import ru.proj3ct5.network.Subscriber;
 import ru.proj3ct5.settings.Handler;
-import ru.proj3ct5.timeTracker.WorkDay;
 
 import java.time.LocalTime;
-import java.util.LinkedList;
 
 @Slf4j
 public class TimeTrackerHandler extends Handler {

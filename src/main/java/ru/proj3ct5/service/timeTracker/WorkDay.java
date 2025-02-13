@@ -1,10 +1,10 @@
-package ru.proj3ct5.timeTracker;
+package ru.proj3ct5.service.timeTracker;
 
 
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.proj3ct5.service.TimeProcessor;
+import ru.proj3ct5.service.secondary.TimeProcessor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

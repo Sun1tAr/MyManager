@@ -1,6 +1,6 @@
-package ru.proj3ct5.service;
+package ru.proj3ct5.service.secondary;
 
-import ru.proj3ct5.timeTracker.WorkTime;
+import ru.proj3ct5.service.timeTracker.WorkTime;
 
 import java.time.LocalTime;
 import java.util.ArrayList;

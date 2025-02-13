@@ -57,7 +57,7 @@ public abstract class Handler {
     }
 
     public void close() {
-        subscriber.stop();
+        subscriber.close();
         running = false;
         log.info("{}'s thread was stopped", this.getClass().getSimpleName());
 

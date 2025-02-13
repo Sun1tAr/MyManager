@@ -16,7 +16,7 @@ public class Configurator {
     @Getter
     private String ip;
 
-    private final File configFile = new File("C:\\0_DATA\\CodeProjects\\Java\\WorkingTimeTracker\\src\\main\\resources\\config.properties");
+    private final File configFile = new File("C:\\0_DATA\\CodeProjects\\Java\\MyManager\\src\\main\\resources\\config.properties");
 
     public Configurator() {
         Properties prop = new Properties();
